@@ -18,6 +18,15 @@ const createTenant = async(tenant) => {
         .execute()
 };
 
+const updateTenant = async(id, data) => {
+    return await getConnection()
+        .createQueryBuilder()
+        .update(Tenant)
+        .set({...data})
+        .where("id = :id", { id })
+        .execute()
+}
+
 const removeTenant = async(id) => {
     return await getConnection()
         .createQueryBuilder()
@@ -31,5 +40,6 @@ const removeTenant = async(id) => {
 export default {
     fetchTenants,
     createTenant,
+    updateTenant,
     removeTenant,
 }
