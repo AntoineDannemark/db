@@ -1,7 +1,7 @@
+import "reflect-metadata";
 import { createConnection } from 'typeorm';
 import { Tenant } from './entities/Tenant';
 import tenantHandlers from './handlers/tenants';
-
 
 const initDB = async(platform) => {
     return await createConnection({
