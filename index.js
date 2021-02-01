@@ -15,8 +15,8 @@ const initDB = async(platform) => {
         await conn
             .getRepository(Tenant)
             .createQueryBuilder()
-            .softDelete()
-            
+            .restore()
+
         return {
             dbReady: conn.isConnected,
             error: null,
