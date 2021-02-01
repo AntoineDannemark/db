@@ -9,6 +9,7 @@ import {
     OneToOne,
     OneToMany,
 } from 'typeorm';
+import { Tenant } from './Tenant';
 import { Phone } from './Phone';
 import { Address } from './Address';
 
