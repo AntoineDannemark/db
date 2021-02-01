@@ -11,12 +11,7 @@ const initDB = async(platform) => {
         logging: ["error", "query", "schema"],
         synchronize: true,
         entities: [Tenant],
-    }).then(async conn => {
-        await conn
-            .getRepository(Tenant)
-            .createQueryBuilder()
-            .restore()
-
+    }).then(conn => {
         return {
             dbReady: conn.isConnected,
             error: null,

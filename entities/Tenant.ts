@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
 
 @Entity()
 export class Tenant {
@@ -10,4 +10,13 @@ export class Tenant {
 
     @Column('varchar')
     lastname!: string;
+
+    @CreateDateColumn()
+    created!: Date;
+
+    @UpdateDateColumn()
+    updated!: Date;
+
+    @DeleteDateColumn()
+    deletedAt?: Date;
 }
