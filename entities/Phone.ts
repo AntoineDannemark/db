@@ -26,7 +26,7 @@ export class Phone extends BaseEntity{
 
     @Column()
     ownerId: number;
-    @ManyToOne(() => People, people => people.phone)
+    @ManyToOne(() => People, people => people.phones)
     @JoinColumn({ name: "ownerId" })
     owner: People;
 
