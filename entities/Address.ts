@@ -33,7 +33,7 @@ export class Address extends BaseEntity{
     postalCode!: number;
 
     // TODO Check appropriate type
-    @Column('string')
+    @Column('varchar')
     country!: string;
 
     @Column()
