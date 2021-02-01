@@ -19,7 +19,10 @@ const createTenant = async(tenant) => {
 };
 
 const updateTenant = async(id, data) => {
-    console.log(data)
+    console.log('---------')
+    console.log('TENANT HANDLER')
+    console.log(id, data)
+    console.log('---------')
     return await getConnection()
         .createQueryBuilder()
         .update(Tenant)
