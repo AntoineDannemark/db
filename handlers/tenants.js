@@ -31,7 +31,7 @@ const removeTenant = async(id) => {
     return await getConnection()
         .createQueryBuilder()
         .softDelete()
-        .delete()
+        // .delete()
         .from(Tenant)
         .where("id = :id", { id })
         .execute();

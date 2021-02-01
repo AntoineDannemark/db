@@ -11,11 +11,11 @@ const initDB = async(platform) => {
         logging: ["error", "query", "schema"],
         synchronize: true,
         entities: [Tenant],
-    }).then(async connection => {
-        await connection
-            .getRepository(Tenant)
-            .createQueryBuilder()
-            .softDelete()
+    }).then(connection => {
+        // await connection
+        //     .getRepository(Tenant)
+        //     .createQueryBuilder()
+        //     .softDelete()
 
         return {
             dbReady: connection.isConnected,
