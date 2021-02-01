@@ -38,7 +38,7 @@ export class Address extends BaseEntity{
 
     @Column()
     ownerId: number;
-    @ManyToOne(() => People, people => people.phone)
+    @ManyToOne(() => People, people => people.addresses)
     @JoinColumn({ name: "ownerId" })
     owner: People;
 
