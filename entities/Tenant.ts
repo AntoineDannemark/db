@@ -1,22 +1,37 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import { 
+    BaseEntity,
+    Entity, 
+    // Column, 
+    PrimaryGeneratedColumn,
+    JoinColumn,
+    // OneToMany, 
+    // CreateDateColumn, 
+    // UpdateDateColumn, 
+    // DeleteDateColumn, 
+} from 'typeorm';
 
 @Entity()
-export class Tenant {
+export class Tenant extends BaseEntity{
     @PrimaryGeneratedColumn('increment')
     id!: number;
 
-    @Column('varchar')
-    firstname!: string;
+    @OneToOne(() => People, people => people.tenant)
+    @JoinColumn()
+    people: People;
 
-    @Column('varchar')
-    lastname!: string;
+    // 
+    // @OneToMany(() => File, file => file.owner)
+    // photos: Photo[];
+    // @CreateDateColumn()
+    // created!: Date;
 
-    @CreateDateColumn()
-    created!: Date;
+    // @UpdateDateColumn()
+    // updated!: Date;
 
-    @UpdateDateColumn()
-    updated!: Date;
-
-    @DeleteDateColumn()
-    deletedAt?: Date;
+    // @DeleteDateColumn()
+    // deletedAt?: Date;
 }
+
+// ref people
+// oneToMany ref files
+// domiciliation

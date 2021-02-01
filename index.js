@@ -1,5 +1,8 @@
 import { createConnection } from 'typeorm';
+import { People } from './entities/People';
 import { Tenant } from './entities/Tenant';
+import { Address } from './entities/Address';
+import { Phone } from './entities/Phone';
 import tenantHandlers from './handlers/tenants';
 
 const initDB = async(platform) => {
@@ -9,7 +12,7 @@ const initDB = async(platform) => {
         location: "default",
         logging: ["error", "query", "schema"],
         synchronize: true,
-        entities: [Tenant],
+        entities: [People, Tenant, Address, Phone],
     }).then(connection => {
         return {
             dbReady: connection.isConnected,
