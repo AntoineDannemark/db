@@ -10,6 +10,8 @@ import {
     // UpdateDateColumn, 
     // DeleteDateColumn, 
 } from 'typeorm';
+import { People } from './People';
+
 
 @Entity()
 export class Tenant extends BaseEntity{
