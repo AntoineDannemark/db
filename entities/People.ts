@@ -6,7 +6,8 @@ import {
     // CreateDateColumn,
     // UpdateDateColumn,
     // DeleteDateColumn,
-    // OneToMany,
+    OneToOne,
+    OneToMany,
 } from 'typeorm';
 import { Phone } from './Phone';
 import { Address } from './Address';

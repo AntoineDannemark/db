@@ -6,7 +6,8 @@ import {
     // CreateDateColumn,
     // UpdateDateColumn,
     // DeleteDateColumn,
-    // OneToMany,
+    ManyToOne,
+    JoinColumn,
 } from 'typeorm';
 import { People } from './People';
 
