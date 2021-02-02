@@ -3,7 +3,7 @@ import { People } from './entities/People';
 import { Tenant } from './entities/Tenant';
 import { Address } from './entities/Address';
 import { Phone } from './entities/Phone';
-import tenantHandlers from './handlers/tenants';
+import peopleHandlers from './handlers/people';
 
 const initDB = async(platform) => {
     return await createConnection({
@@ -28,5 +28,5 @@ const initDB = async(platform) => {
 
 export const api = {
     initDB,
-    ...tenantHandlers,
+    ...peopleHandlers,
 }

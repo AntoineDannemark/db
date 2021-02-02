@@ -1,7 +1,7 @@
 import { getConnection } from 'typeorm';
 import { Tenant } from '../entities/Tenant';
 
-const fetchTenants = async() => {
+const fetchPeople = async() => {
     return await getConnection()
         .createQueryBuilder()
         .select("*")
@@ -9,7 +9,7 @@ const fetchTenants = async() => {
         .execute()
 }
 
-const createTenant = async(tenant) => {
+const createPerson = async(tenant) => {
     return await getConnection()
         .createQueryBuilder()
         .insert()
@@ -18,7 +18,7 @@ const createTenant = async(tenant) => {
         .execute()
 };
 
-const updateTenant = async(id, data) => {
+const updatePerson = async(id, data) => {
     return await getConnection()
         .createQueryBuilder()
         .update(Tenant)
@@ -27,7 +27,7 @@ const updateTenant = async(id, data) => {
         .execute()
 }
 
-const removeTenant = async(id) => {
+const removePerson = async(id) => {
     return await getConnection()
         .createQueryBuilder()
         .softDelete()
@@ -37,8 +37,8 @@ const removeTenant = async(id) => {
 };
 
 export default {
-    fetchTenants,
-    createTenant,
-    updateTenant,
-    removeTenant,
+    fetchPeople,
+    createPerson,
+    updatePerson,
+    removePerson,
 }
