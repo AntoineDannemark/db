@@ -4,7 +4,7 @@ import { Tenant } from '../entities/Tenant';
 const fetchTenants = async() => {
     return await getConnection()
         .createQueryBuilder()
-        .select("*")
+        .select("id, firstname, lastname")
         .from(Tenant)
         .execute()
 }
