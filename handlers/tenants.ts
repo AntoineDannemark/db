@@ -9,7 +9,12 @@ const fetchTenants = async() => {
         .execute()
 }
 
-const createTenant = async(tenant) => {
+interface tenantData {
+    firstname: string; 
+    lastname: string;
+}
+
+const createTenant = async(tenant: tenantData) => {
     return await getConnection()
         .createQueryBuilder()
         .insert()
@@ -18,7 +23,7 @@ const createTenant = async(tenant) => {
         .execute()
 };
 
-const updateTenant = async(id, { firstname, lastname }) => {
+const updateTenant = async(id: number, { firstname, lastname }: tenantData) => {
     return await getConnection()
         .createQueryBuilder()
         .update(Tenant)
@@ -27,7 +32,7 @@ const updateTenant = async(id, { firstname, lastname }) => {
         .execute()
 }
 
-const removeTenant = async(id) => {
+const removeTenant = async(id: number) => {
     return await getConnection()
         .createQueryBuilder()
         .softDelete()

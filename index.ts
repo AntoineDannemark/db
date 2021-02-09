@@ -2,7 +2,9 @@ import { createConnection } from 'typeorm';
 import { Tenant } from './entities/Tenant';
 import tenantHandlers from './handlers/tenants';
 
-const initDB = async(platform) => {
+type platform = "sqlite" | "cordova"
+
+const initDB = async(platform: platform) => {
     return await createConnection({
         type: platform,
         database: "ioreel.db",
