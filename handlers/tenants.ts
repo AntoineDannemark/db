@@ -4,8 +4,8 @@ import { Tenant } from '../entities/Tenant';
 const fetchTenants = async() => {
     return await getConnection()
         .createQueryBuilder()
-        .select("*")
-        .from(Tenant)
+        .select("id, firstname, lastname")
+        .from(Tenant, "tenant")
         .execute()
 }
 
@@ -18,11 +18,11 @@ const createTenant = async(tenant) => {
         .execute()
 };
 
-const updateTenant = async(id, data) => {
+const updateTenant = async(id, { firstname, lastname }) => {
     return await getConnection()
         .createQueryBuilder()
         .update(Tenant)
-        .set({...data})
+        .set({ firstname, lastname })
         .where("id = :id", { id })
         .execute()
 }
@@ -31,8 +31,8 @@ const removeTenant = async(id) => {
     return await getConnection()
         .createQueryBuilder()
         .softDelete()
-        .from(Tenant)
-        .where("id = :id", { id })
+        .from(Tenant, "tenant")
+        .where("tenant.id = :id", { id })
         .execute();
 };
 
