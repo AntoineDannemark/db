@@ -1,22 +1,23 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm'
+
 
 @Entity()
 export class Tenant {
     @PrimaryGeneratedColumn('increment')
-    id!: number;
+    id: number;
 
     @Column('varchar')
-    firstname!: string;
+    firstname: string;
 
     @Column('varchar')
-    lastname!: string;
+    lastname: string;
 
     @CreateDateColumn()
-    created!: Date;
+    created: Date;
 
     @UpdateDateColumn()
-    updated!: Date;
+    updated: Date;
 
     @DeleteDateColumn()
-    deletedAt?: Date;
+    deletedAt: Date;
 }
