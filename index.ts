@@ -1,6 +1,8 @@
 import { createConnection } from 'typeorm';
 import { Tenant } from './entities/Tenant';
+import { People } from './entities/People';
 import tenantHandlers from './handlers/tenants';
+import peopleHandlers from './handlers/people';
 
 type platform = "sqlite" | "cordova"
 
@@ -11,7 +13,7 @@ const initDB = async(platform: platform) => {
         location: "default",
         logging: ["error", "query", "schema"],
         synchronize: true,
-        entities: [Tenant],
+        entities: [Tenant, People],
     }).then(connection => {
         return {
             dbReady: connection.isConnected,
@@ -28,4 +30,5 @@ const initDB = async(platform: platform) => {
 export const api = {
     initDB,
     ...tenantHandlers,
+    ...peopleHandlers,
 }
