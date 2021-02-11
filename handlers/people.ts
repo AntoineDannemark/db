@@ -32,7 +32,7 @@ interface personData {
 const createPerson = (person: personData) => controller.create(person)
 
 
-const updatePerson = async(id: string, { firstname, lastname, email }: personData) => {
+const updatePerson = async(id: number, { firstname, lastname, email }: personData) => {
     return await getConnection()
         .createQueryBuilder()
         .update(Person)
@@ -41,7 +41,7 @@ const updatePerson = async(id: string, { firstname, lastname, email }: personDat
         .execute()
 }
 
-const deletePerson = async(id: string) => {
+const deletePerson = async(id: number) => {
     return await getConnection()
         .createQueryBuilder()
         .softDelete()
