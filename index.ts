@@ -95,8 +95,11 @@ const createJohnDoe = async () => {
     await phoneRepository.save(phone)
     console.log('/*/*/*/* SAVE PHONE')
     const address = addressRepository.create({
-        street: 'Avenue Blonden',
+        street: "Rue Antoine",
         number: 76,
+        city: "Waimes que j'aime",
+        zip: 4950,
+        country: "bellegicle",
     })
     
     await addressRepository.save(address)
