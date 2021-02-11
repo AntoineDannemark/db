@@ -1,4 +1,8 @@
-import { EntityRepository, getCustomRepository, Repository } from 'typeorm';
+import { 
+    EntityRepository, 
+    getCustomRepository, 
+    Repository 
+} from 'typeorm';
 import { Person } from '../entity/Person';
 import { Phone } from '../entity/Phone';
 import { PhoneRepository } from './PhoneRepository';
@@ -11,12 +15,9 @@ export class PersonRepository extends Repository<Person> {
 
     async addPhone(id: number, phone: {prefix: number, number: number}) {
         const phoneRepository = getCustomRepository(PhoneRepository); 
-        const user = await this.findOne({ id });
+        const user = await this.findOne({ where: { id }, relations: ['phones'] });
+
         if (user) {
-            console.log('---- User -----')
-            console.log(user)
-            console.log('---- User phones -----')
-            console.log(user.phones)
             const newPhone = new Phone();
             newPhone.prefix = phone.prefix;
             newPhone.number = phone.number;
