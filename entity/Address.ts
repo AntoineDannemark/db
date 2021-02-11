@@ -17,9 +17,15 @@ export class Address extends Model {
     @Column('int')
     number: number;  
 
-    // @Column()
-    // ownerId: number;
+    @Column('varchar')
+    city: string;  
+
+    @Column('int')
+    zip: number;  
     
+    @Column('varchar')
+    country: string;  
+
     @ManyToOne(() => Person, person => person.addresses)
     @JoinColumn({ name: "ownerId" })
     owner: Person;

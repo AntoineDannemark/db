@@ -16,9 +16,6 @@ export class Phone extends Model {
 
     @Column('int')
     number: number;  
-
-    // @Column('int')
-    // ownerId: number;
     
     @ManyToOne(() => Person, person => person.phones)
     @JoinColumn({ name: "ownerId" })

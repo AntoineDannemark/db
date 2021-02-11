@@ -48,11 +48,31 @@ const api = {
             const personRepository = getCustomRepository(PersonRepository); 
             return await personRepository.findByName(firstname, lastname)
         },
-        addPhone: async(id: number, phone: {prefix: number, number: number}) => {
+        addPhone: async(
+            id: number, 
+            phone: {
+                prefix: number, 
+                number: number
+            }
+        ) => {
             const personRepository = getCustomRepository(PersonRepository);
             return await personRepository.addPhone(id, phone)
         },
+        addAddress: async (
+            id: number,
+            address: {
+                street: string,
+                number: number,
+                city: string,
+                zip: number,
+                country: string; 
+            }
+        ) => {
+            const personRepository = getCustomRepository(PersonRepository);
+            return await personRepository.addAddress(id, address);
+        },
     },
+    // va être modifié si je continue sur ma lancée
     ...tenantHandlers,
     ...peopleHandlers,
 }
