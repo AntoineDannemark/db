@@ -43,7 +43,7 @@ const initDB = async(platform: platform) => {
     })
 }
 
-export default {
+const api = {
     initDB,
     person: {
         findByName: async(firstname: string, lastname: string) => {
@@ -59,6 +59,9 @@ export default {
     ...peopleHandlers,
 }
 
+export type Api = typeof api;
+
+export default api;
 
 // const createJohnDoe = async () => {
 //     console.log('/*/*/*/* CREATE JOHN DOE')
