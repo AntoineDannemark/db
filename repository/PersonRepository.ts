@@ -6,7 +6,7 @@ import { PhoneRepository } from './PhoneRepository';
 @EntityRepository(Person) 
 export class PersonRepository extends Repository<Person> {
     findByName(firstname: string, lastname: string) {
-        return this.findOne({ firstname, lastname }, { relations: ['phones', 'addresses'] })
+        return this.findOne({where: { firstname, lastname }, relations: ['phones', 'addresses'] })
     }
 
     async addPhone(id: number, phone: {prefix: number, number: number}) {
