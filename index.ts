@@ -43,6 +43,9 @@ const initDB = async(platform: platform) => {
 
 const api = {
     initDB,
+    // TODO if possible, generate the functions programmatically by looping over the repo's methods
+    // after all we're only passing through the typed arguments, and awaiting the homonym's call on the appropriate repo
+    // Imagine something like person: generateRepositoryApi(PersonRepository)
     person: {
         findByName: async(firstname: string, lastname: string) => {
             const personRepository = getCustomRepository(PersonRepository); 
