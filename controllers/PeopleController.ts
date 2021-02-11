@@ -1,5 +1,5 @@
 import { getManager } from 'typeorm'
-import { People } from '../entities/People'
+import { Person } from '../entity/Person'
 import { validate } from 'class-validator'
 
 interface peopleDetails {
@@ -9,9 +9,9 @@ interface peopleDetails {
 }
 
 export class PeopleController {
-    async create(peopleDetails: peopleDetails): Promise<People> {
+    async create(peopleDetails: peopleDetails): Promise<Person> {
         const { firstname, lastname, email } = peopleDetails
-        let people = new People();
+        let people = new Person();
         people.firstname = firstname;
         people.lastname = lastname;
         people.email = email;
@@ -23,9 +23,11 @@ export class PeopleController {
             await getManager().save(people)
         }
 
+        console.log(people)
+
         return people
     }
     getAll() {
-        return getManager().find(People);
+        return getManager().find(Person);
     }
 }

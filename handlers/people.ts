@@ -1,6 +1,6 @@
 import { PeopleController } from './../controllers/PeopleController';
 import { getConnection } from 'typeorm';
-import { People } from '../entities/People';
+import { Person } from '../entity/Person';
 
 let controller = new PeopleController()
 
@@ -35,7 +35,7 @@ const createPerson = (person: personData) => controller.create(person)
 const updatePerson = async(id: string, { firstname, lastname, email }: personData) => {
     return await getConnection()
         .createQueryBuilder()
-        .update(People)
+        .update(Person)
         .set({ firstname, lastname, email })
         .where("id = :id", { id })
         .execute()
@@ -45,7 +45,7 @@ const deletePerson = async(id: string) => {
     return await getConnection()
         .createQueryBuilder()
         .softDelete()
-        .from(People, "person")
+        .from(Person, "person")
         .where("person.id = :id", { id })
         .execute();
 };

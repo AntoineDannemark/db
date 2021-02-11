@@ -1,5 +1,5 @@
 import { getConnection } from 'typeorm';
-import { Tenant } from '../entities/Tenant';
+import { Tenant } from '../entity/Tenant';
 
 const fetchTenants = async() => {
     return await getConnection()
