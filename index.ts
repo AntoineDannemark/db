@@ -1,4 +1,4 @@
-import { createConnection, getRepository, getCustomRepository } from 'typeorm';
+import { createConnection, getCustomRepository } from 'typeorm';
 import { PersonRepository } from "./repository/PersonRepository";
 // import { Tenant } from './entity/Tenant';
 import tenantHandlers from './handlers/tenants';
@@ -18,18 +18,18 @@ const initDB = async(platform: platform) => {
         synchronize: true,
         entities: [Person, Address, Phone],
     }).then(async connection => {
-        const personRepository = getRepository(Person);
-        const peopleCount = await personRepository.findAndCount()
-        console.log('PEOPLE COUNT: ', peopleCount);
+        // const personRepository = getRepository(Person);
+        // const peopleCount = await personRepository.findAndCount()
+        // console.log('PEOPLE COUNT: ', peopleCount);
         
-        await createJohnDoe()
+        // await createJohnDoe()
         
-        const personCustomRepository = getCustomRepository(PersonRepository); 
-        const john = await personCustomRepository.findByName('john', 'doe'); // same as const user = new User();
+        // const personCustomRepository = getCustomRepository(PersonRepository); 
+        // const john = await personCustomRepository.findByName('john', 'doe'); // same as const user = new User();
 
-        console.log('---------------------------')
-        console.log(john)
-        console.log('---------------------------')
+        // console.log('---------------------------')
+        // console.log(john)
+        // console.log('---------------------------')
 
         return {
             dbReady: connection.isConnected,
@@ -43,51 +43,57 @@ const initDB = async(platform: platform) => {
     })
 }
 
-export const api = {
+export default {
     initDB,
-    findPersonByName: async(firstname: string, lastname: string) => {
-        const personCustomRepository = getCustomRepository(PersonRepository); 
-        return await personCustomRepository.findByName(firstname, lastname)
+    person: {
+        findByName: async(firstname: string, lastname: string) => {
+            const personRepository = getCustomRepository(PersonRepository); 
+            return await personRepository.findByName(firstname, lastname)
+        },
+        addPhone: async(id: number, phone: {prefix: number, number: number}) => {
+            const personRepository = getCustomRepository(PersonRepository);
+            return await personRepository.addPhone(id, phone)
+        },
     },
     ...tenantHandlers,
     ...peopleHandlers,
 }
 
 
-const createJohnDoe = async () => {
-    console.log('/*/*/*/* CREATE JOHN DOE')
-    const personRepository = getCustomRepository(PersonRepository); 
-    const phoneRepository = getRepository(Phone);
-    const addressRepository = getRepository(Address);
+// const createJohnDoe = async () => {
+//     console.log('/*/*/*/* CREATE JOHN DOE')
+//     const personRepository = getCustomRepository(PersonRepository); 
+//     const phoneRepository = getRepository(Phone);
+//     const addressRepository = getRepository(Address);
     
-    const phone = phoneRepository.create({
-        prefix: 32,
-        number: 670400
-    })
+//     const phone = phoneRepository.create({
+//         prefix: 32,
+//         number: 670400
+//     })
 
-    await phoneRepository.save(phone)
-    console.log('/*/*/*/* SAVE PHONE')
-    const address = addressRepository.create({
-        street: 'Avenue Blonden',
-        number: 76,
-    })
+//     await phoneRepository.save(phone)
+//     console.log('/*/*/*/* SAVE PHONE')
+//     const address = addressRepository.create({
+//         street: 'Avenue Blonden',
+//         number: 76,
+//     })
     
-    await addressRepository.save(address)
-    console.log('/*/*/*/* SAVE ADDRESS')
-    const person = personRepository.create({
-        firstname: "john",
-        lastname: "doe",
-        // LOL the date saved is 1984-11-16T23:00:00.000Z
-        birthDate: new Date(1984, 10, 17).toISOString(),
-        birthPlace: 'liège',
-        email: 'john.doe@test.com',
-        gender: 'm',
-        bankAccount: 'BE674567321564',
-        bankCode: 'BBRUEB',
-        phones: [phone],
-        addresses: [address]
-    })
+//     await addressRepository.save(address)
+//     console.log('/*/*/*/* SAVE ADDRESS')
+//     const person = personRepository.create({
+//         firstname: "john",
+//         lastname: "doe",
+//         // LOL the date saved is 1984-11-16T23:00:00.000Z
+//         birthDate: new Date(1984, 10, 17).toISOString(),
+//         birthPlace: 'liège',
+//         email: 'john.doe@test.com',
+//         gender: 'm',
+//         bankAccount: 'BE674567321564',
+//         bankCode: 'BBRUEB',
+//         phones: [phone],
+//         addresses: [address]
+//     })
 
-    await personRepository.save(person)
-    console.log('/*/*/*/* SAVE JOHN')
-}
+//     await personRepository.save(person)
+//     console.log('/*/*/*/* SAVE JOHN')
+// }
