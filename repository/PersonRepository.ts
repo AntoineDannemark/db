@@ -15,15 +15,15 @@ export class PersonRepository extends Repository<Person> {
 
     async addPhone(id: number, phone: {prefix: number, number: number}) {
         const phoneRepository = getCustomRepository(PhoneRepository); 
-        const user = await this.findOne({ where: { id }, relations: ['phones'] });
+        const person = await this.findOne({ where: { id }, relations: ['phones'] });
 
-        if (user) {
+        if (person) {
             const newPhone = new Phone();
             newPhone.prefix = phone.prefix;
             newPhone.number = phone.number;
             await phoneRepository.save(newPhone);
-            user.phones.push(newPhone);
-            await this.save(user);
+            person.phones.push(newPhone);
+            await this.save(person);
             return true;
         } else {
             return false
