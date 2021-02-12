@@ -1,4 +1,4 @@
-import { createConnection, getRepository, getCustomRepository } from 'typeorm';
+import { createConnection, getRepository, getCustomRepository, Entity } from 'typeorm';
 import { PersonRepository } from "./repository/PersonRepository";
 // import { Tenant } from './entity/Tenant';
 import tenantHandlers from './handlers/tenants';
@@ -41,8 +41,15 @@ const initDB = async(platform: platform) => {
     })
 }
 
+
+
+const generateApi = (entity: typeof Entity) => {
+    console.log(Object.getOwnPropertyNames(Object.getPrototypeOf(getCustomRepository(entity))));
+}
+
 const api = {
     initDB,
+    generateApi,
     /*
 
     TODO - if possible, 
@@ -91,7 +98,6 @@ const api = {
             return await personRepository.addAddress(id, address);
         },
     },
-    // va être modifié si je continue sur ma lancée
     ...tenantHandlers,
     ...peopleHandlers,
 }
