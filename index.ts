@@ -41,10 +41,13 @@ const initDB = async(platform: platform) => {
     })
 }
 
+const getMethods = (obj: object) => Object.getOwnPropertyNames(obj).filter(item => item !== 'constructor' && typeof obj[item] === 'function') 
 
-
-const generateApi = (entity: any =  Person) => {
-    return Object.getOwnPropertyNames(Object.getPrototypeOf(getCustomRepository(entity)));
+const generateApi = async function(repository: any =  PersonRepository) {
+    let repo = Object.getPrototypeOf(getCustomRepository(repository))
+    const methods = await getMethods(repo);
+   
+    return methods;
 }
 
 const api = {
