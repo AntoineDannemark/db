@@ -43,8 +43,8 @@ const initDB = async(platform: platform) => {
 
 
 
-const generateApi = (entity: typeof Entity) => {
-    console.log(Object.getOwnPropertyNames(Object.getPrototypeOf(getCustomRepository(entity))));
+const generateApi = (entity: any =  Person) => {
+    return Object.getOwnPropertyNames(Object.getPrototypeOf(getCustomRepository(entity)));
 }
 
 const api = {
