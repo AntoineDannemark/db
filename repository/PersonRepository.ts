@@ -8,6 +8,7 @@ import { Phone } from '../entity/Phone';
 import { Address } from '../entity/Address';
 import { PhoneRepository } from './PhoneRepository';
 import { AddressRepository } from './AddressRepository';
+import { validate } from 'class-validator';
 
 
 @EntityRepository(Person) 
@@ -29,10 +30,17 @@ export class PersonRepository extends Repository<Person> {
             const newPhone = new Phone();
             newPhone.prefix = phone.prefix;
             newPhone.number = phone.number;
-            await phoneRepository.save(newPhone);
-            person.phones.push(newPhone);
-            await this.save(person);
-            return true;
+            
+            const errors = await validate(newPhone);
+
+            if (errors.length > 0) {
+                throw new Error('Phone validation failed')
+            } else {
+                await phoneRepository.save(newPhone);    
+                person.phones.push(newPhone);            
+                await this.save(person);
+                return true;
+            }
         } else {
             return false
         }
@@ -46,7 +54,6 @@ export class PersonRepository extends Repository<Person> {
             city: string,
             zip: number,
             country: string,
-
     }) {
         const addressRepository = getCustomRepository(AddressRepository);
         const person = await this.findOne({ where: { id }, relations: ['addresses'] });
@@ -67,13 +74,16 @@ export class PersonRepository extends Repository<Person> {
             newAddress.zip = zip;
             newAddress.country = country;
         
-            await addressRepository.save(newAddress);
-        
-            person.addresses.push(newAddress);
-        
-            await this.save(person);
-        
-            return true;
+            const errors = await validate(newAddress);
+
+            if (errors.length > 0) {
+                throw new Error('Address validation failed')
+            } else {
+                await addressRepository.save(newAddress);            
+                person.addresses.push(newAddress);            
+                await this.save(person);            
+                return true;
+            }
         } else {
             return false
         }
