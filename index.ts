@@ -57,26 +57,19 @@ const generateApi = async function(repository: any =  PersonRepository) {
     let api: any = {};
 
     for (const method in methods) {
-        let nextApi = {
-            ...api,
-            [method]: async() => {
-                return await repo[method]()
-            },
+        console.log(methods)
+        console.log(method)
+        api[method] = async() => {
+            return await repo[method]()
         }
-
-        api = nextApi;
     };
 
-    console.log('----- API -----')
-    console.log(api)
-    console.log('---------')
-
-    return { ...api };
+    return api;
 }
 
 const api = {
     initDB,
-    generateApi,
+    ...generateApi(),
     /*
 
     TODO - if possible, 
