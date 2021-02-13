@@ -48,19 +48,26 @@ const generateApi = async function(repository: any =  PersonRepository) {
     let repo = Object.getPrototypeOf(getCustomRepository(repository))
     // let repo = getCustomRepository(repository)
     const methods = await getMethods(repo);
-   
+
     let api: any = {};
 
     for (const method in methods) {
-        api[method] = async() => {
-            return await repo[method]()
+        let nextApi = {
+            ...api,
+            [method]: async() => {
+                return await repo[method]()
+            },
         }
+
+        api = nextApi;
     };
+
+    return api;
 }
 
 const api = {
     initDB,
-    ...generateApi(),
+    generateApi,
     /*
 
     TODO - if possible, 
