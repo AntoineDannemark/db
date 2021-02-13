@@ -6,6 +6,7 @@ import peopleHandlers from './handlers/people';
 import { Person } from './entity/Person';
 import { Address } from './entity/Address';
 import { Phone } from './entity/Phone';
+import { isObjectLiteralElement } from 'typescript';
 
 type platform = "sqlite" | "cordova"
 
@@ -41,18 +42,25 @@ const initDB = async(platform: platform) => {
     })
 }
 
-const getMethods = (obj: object) => Object.getOwnPropertyNames(obj).filter(item => item !== 'constructor' && typeof obj[item] === 'function') 
+const getMethods = (obj: any) => Object.getOwnPropertyNames(obj).filter(item => item !== 'constructor' && typeof obj[item] === 'function') 
 
 const generateApi = async function(repository: any =  PersonRepository) {
     let repo = Object.getPrototypeOf(getCustomRepository(repository))
+    // let repo = getCustomRepository(repository)
     const methods = await getMethods(repo);
    
-    return methods;
+    let api: any = {};
+
+    for (const method in methods) {
+        api[method] = async() => {
+            return await repo[method]()
+        }
+    };
 }
 
 const api = {
     initDB,
-    generateApi,
+    ...generateApi(),
     /*
 
     TODO - if possible, 
