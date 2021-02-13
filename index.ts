@@ -49,6 +49,11 @@ const generateApi = async function(repository: any =  PersonRepository) {
     // let repo = getCustomRepository(repository)
     const methods = await getMethods(repo);
 
+    console.log('----- METHODS -----')
+    console.log(methods)
+    console.log('---------')
+   
+
     let api: any = {};
 
     for (const method in methods) {
@@ -62,7 +67,11 @@ const generateApi = async function(repository: any =  PersonRepository) {
         api = nextApi;
     };
 
-    return api;
+    console.log('----- API -----')
+    console.log(api)
+    console.log('---------')
+
+    return JSON.stringify(api);
 }
 
 const api = {
