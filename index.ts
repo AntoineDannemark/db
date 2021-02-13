@@ -71,7 +71,7 @@ const generateApi = async function(repository: any =  PersonRepository) {
     console.log(api)
     console.log('---------')
 
-    return JSON.stringify(api);
+    return { ...api };
 }
 
 const api = {
