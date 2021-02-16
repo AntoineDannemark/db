@@ -13,7 +13,6 @@ import peopleHandlers from './handlers/people';
 import { Person } from './entity/Person';
 import { Address } from './entity/Address';
 import { Phone } from './entity/Phone';
-import { isObjectLiteralElement } from 'typescript';
 
 type platform = "sqlite" | "cordova"
 
