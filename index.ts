@@ -3,16 +3,16 @@ import {
     getCustomRepository, 
 } from 'typeorm';
 
+import { PersonRepository } from "./repository/PersonRepository";
 import { AddressRepository } from './repository/AddressRepository';
 import { PhoneRepository } from './repository/PhoneRepository';
-import { PersonRepository } from "./repository/PersonRepository";
-
-import tenantHandlers from './handlers/tenants';
-import peopleHandlers from './handlers/people';
 
 import { Person } from './entity/Person';
 import { Address } from './entity/Address';
 import { Phone } from './entity/Phone';
+
+import tenantHandlers from './handlers/tenants';
+import peopleHandlers from './handlers/people';
 
 type platform = "sqlite" | "cordova"
 
@@ -26,13 +26,14 @@ const initDB = async(platform: platform) => {
         entities: [Person, Address, Phone],
     }).then(async connection => {
         const personRepository = getCustomRepository(PersonRepository); 
+
         const peopleCount = await personRepository.count()
 
         console.warn('People count: ', peopleCount)
         
         if (!peopleCount) await createJohnDoe()
         
-        const john = await personRepository.findByName('john', 'doe');
+        const john = await personRepository.findByName('john', 'doe'); // same as const user = new User();
 
         console.log('---------------------------')
         console.log(john)
@@ -94,6 +95,7 @@ const createJohnDoe = async () => {
     const phoneRepository = getCustomRepository(PhoneRepository);
     const addressRepository = getCustomRepository(AddressRepository);
 
+
     const phone = phoneRepository.create({
         prefix: 32,
         number: 670400
@@ -114,7 +116,7 @@ const createJohnDoe = async () => {
     const person = personRepository.create({
         firstname: "john",
         lastname: "doe",
-        // LOL the date saved is 1984-11-16T23:00:00.000Z
+        // NOTE the saved date is 1984-11-16T23:00:00.000Z
         birthDate: new Date(1984, 10, 17).toISOString(),
         birthPlace: 'liège',
         email: 'john.doe@test.com',
