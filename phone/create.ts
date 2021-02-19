@@ -21,6 +21,7 @@ export default async ({
             .insert()
             .into(Phone)
             .values(phone)
+            .execute()
     }
 }
 
