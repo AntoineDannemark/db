@@ -1,12 +1,24 @@
 import { Column, Entity, OneToMany  } from 'typeorm'
 import { IsEmail, IsDateString, IsIn } from 'class-validator'
 
-import Model from './Model'
-import { Phone } from './Phone'
-import { Address } from './Address'
+import Model from '../Model'
+import { Phone } from '../phone/Phone'
+import { Address } from '../address/Address'
 
-@Entity('people')
-export class Person extends Model {
+export interface IPerson {
+    firstname: string;
+    lastname: string;
+    birthDate: string;
+    birthPlace: string;
+    email: string;
+    gender: string;
+    bankAccount: string;
+    bankCode: string;
+    comment: string;    
+}
+
+@Entity()
+export class Person extends Model implements IPerson {  
 
     @Column('varchar')
     firstname: string;

@@ -2,14 +2,21 @@ import {
     Entity,
     Column,
     ManyToOne,
-    JoinColumn,
 } from 'typeorm';
 
-import Model from './Model';
-import { Person } from './Person';
+import Model from '../Model';
+import { Person } from '../person/Person';
+
+export interface IAddress {
+    street: string;
+    number: number,
+    city: string;
+    zip: number;
+    country: string;
+}
 
 @Entity()
-export class Address extends Model {
+export class Address extends Model implements IAddress {
 
     @Column('varchar')
     street: string;
@@ -27,6 +34,5 @@ export class Address extends Model {
     country: string;  
 
     @ManyToOne(() => Person, person => person.addresses)
-    @JoinColumn({ name: "ownerId" })
     owner: Person;
 }

@@ -2,14 +2,18 @@ import {
     Entity,
     Column,
     ManyToOne,
-    JoinColumn,
 } from 'typeorm';
 
-import Model from './Model';
-import { Person } from './Person';
+import Model from '../Model';
+import { Person } from '../person/Person';
+
+export interface IPhone {
+    prefix: number;
+    number: number;
+}
 
 @Entity()
-export class Phone extends Model {
+export class Phone extends Model implements IPhone{
 
     @Column('int')
     prefix: number;
@@ -18,6 +22,5 @@ export class Phone extends Model {
     number: number;  
     
     @ManyToOne(() => Person, person => person.phones)
-    @JoinColumn({ name: "ownerId" })
     owner: Person;
 }
