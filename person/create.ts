@@ -26,12 +26,9 @@ export default async ({
     person.phones = [];
     person.addresses = [];
 
-    console.log(person)
-
     const errors = await validate(person)
 
     if (errors.length > 0) {
-        console.log(errors)
         // TODO better error handling
         throw new Error('validation error')
     } else {
