@@ -9,5 +9,6 @@ export default async() => {
         .createQueryBuilder()
         .select(fullQueryCols)
         .from(Person, "person")
+        .leftJoinAndSelect("person.phones","phone")
         .execute()
 }
