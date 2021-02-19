@@ -16,12 +16,14 @@ export default async ({
         // TODO better error handling
         throw new Error('validation error')
     } else {
-        return await getConnection()
+        const result = await getConnection()
             .createQueryBuilder()
             .insert()
             .into(Phone)
             .values(phone)
             .execute()
+
+        return result.raw;
     }
 }
 
