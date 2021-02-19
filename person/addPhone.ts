@@ -8,6 +8,8 @@ export default async (id: number, { prefix, number }: IPhone) => {
     phone.prefix = prefix;
     phone.number = number;
 
+    console.log(id, phone)
+
     const errors = await validate(phone)
 
     if (errors.length > 0) {
