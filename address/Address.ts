@@ -34,9 +34,7 @@ export class Address extends Model implements IAddress {
     @Column('varchar')
     country: string;  
 
-    @Column('int')
-    ownerId: number;
     @ManyToOne(() => Person, person => person.addresses)
-    @JoinColumn({ name: "ownerId" })
+    @JoinColumn({ name: "owner_id" })
     owner: Person;
 }

@@ -22,9 +22,7 @@ export class Phone extends Model implements IPhone{
     @Column('int')
     number: number;  
     
-    @Column('int')
-    ownerId: number;
     @ManyToOne(() => Person, person => person.phones)
-    @JoinColumn({ name: "ownerId" })
+    @JoinColumn({ name: "owner_id" })
     owner: Person;
 }
