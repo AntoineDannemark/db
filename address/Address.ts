@@ -2,6 +2,7 @@ import {
     Entity,
     Column,
     ManyToOne,
+    JoinColumn,
 } from 'typeorm';
 
 import Model from '../Model';
@@ -33,6 +34,9 @@ export class Address extends Model implements IAddress {
     @Column('varchar')
     country: string;  
 
+    @Column('int')
+    ownerId: number;
     @ManyToOne(() => Person, person => person.addresses)
+    @JoinColumn({ name: "ownerId" })
     owner: Person;
 }
