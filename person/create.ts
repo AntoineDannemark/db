@@ -1,6 +1,6 @@
-import { getConnection } from 'typeorm';
 import { validate } from 'class-validator';
 import { Person, IPerson } from './index';
+import database from "../../testConnection";
 
 export default async ({
     firstname,
@@ -12,7 +12,7 @@ export default async ({
     bankAccount,
     bankCode,
     comment,
-}: IPerson) => {    
+}: IPerson) => {
     let person = new Person();
     person.firstname = firstname;
     person.lastname = lastname;
@@ -32,8 +32,9 @@ export default async ({
         // TODO better error handling
         throw new Error('validation error')
     } else {
-        return await getConnection()
-            .createQueryBuilder()
+        const co = await database.getConnection();
+
+        return await co.createQueryBuilder()
             .insert()
             .into(Person)
             .values(person)

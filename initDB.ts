@@ -4,17 +4,21 @@ import { Person } from './person';
 import { Address } from './address';
 import { Phone } from './phone';
 
-type platform = "sqlite" | "cordova"
+type platform = "sqlite" | "cordova" | "better-sqlite3"
 
-export default async(platform: platform) => {
+const initDB = async (platform: platform) => {
     return await createConnection({
         type: platform,
-        database: "ioreel.db",
+        database: "/mnt/efs/medieval.db",
         location: "default",
         logging: ["error", "query", "schema"],
         synchronize: true,
         entities: [Person, Address, Phone],
-    }).then(async connection => {       
+    }).then(async connection => {
+        if (platform === "better-sqlite3") {
+            return connection;
+        }
+
         return {
             dbReady: connection.isConnected,
             error: null,
@@ -26,3 +30,5 @@ export default async(platform: platform) => {
         }
     })
 }
+
+export default initDB;
