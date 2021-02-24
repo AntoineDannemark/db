@@ -1,8 +1,8 @@
-import { getConnection } from 'typeorm';
+import Database, { ConnectionOptions } from './../Database';
 import { validate } from 'class-validator';
 import { Person, IPerson } from './index';
 
-export default async ({
+export default async (options: ConnectionOptions, {
     firstname,
     lastname,
     birthDate,
@@ -32,7 +32,9 @@ export default async ({
         // TODO better error handling
         throw new Error('validation error')
     } else {
-        return await getConnection()
+        let connection = await Database.getConnectionInstance(options)
+        
+        return await connection
             .createQueryBuilder()
             .insert()
             .into(Person)
