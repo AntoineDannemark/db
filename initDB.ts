@@ -4,25 +4,15 @@ import { Person } from './person';
 import { Address } from './address';
 import { Phone } from './phone';
 
-type platform = "sqlite" | "cordova"
+import { platform } from './Database';
 
-export default async(platform: platform) => {
+export default async(isServerless: boolean, platform: platform) => {
     return await createConnection({
         type: platform,
-        database: "ioreel.db",
+        database: isServerless ? "/mnt/efs/medieval.db" : "medieval.db",
         location: "default",
         logging: ["error", "query", "schema"],
         synchronize: true,
         entities: [Person, Address, Phone],
-    }).then(async connection => {       
-        return {
-            dbReady: connection.isConnected,
-            error: null,
-        }
-    }).catch(err => {
-        return {
-            dbReady: false,
-            error: err,
-        }
-    })
+    });
 }
