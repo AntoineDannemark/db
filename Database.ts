@@ -1,7 +1,7 @@
 import { Connection, ConnectionManager, getConnectionManager } from 'typeorm';
 import initDB from './initDB';
 
-type platform = "cordova" | "better-sqlite3"
+export type platform = "cordova" | "better-sqlite3"
 
 export type ConnectionOptions = {
     isServerless: boolean 
@@ -10,13 +10,11 @@ export type ConnectionOptions = {
 
 export default class Database {
     private connectionManager: ConnectionManager;
-    private isServerless: boolean;
-    private platform: platform;
+    private options: ConnectionOptions;
 
     constructor(options: ConnectionOptions) {
         this.connectionManager = getConnectionManager();
-        this.isServerless = options.isServerless;
-        this.platform = options.platform;
+        this.options = options;
     }
 
     public static getConnectionInstance(options: ConnectionOptions) {
@@ -41,7 +39,7 @@ export default class Database {
         else {
             console.log(`Database.getConnection()-creating connection ...`);
 
-            connection = await initDB(this.isServerless, this.platform);
+            connection = await initDB(this.options);
         }
 
         return connection;
