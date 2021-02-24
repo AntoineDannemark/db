@@ -4,8 +4,9 @@ import Database from './Database';
 
 // Ici si sls 
 
-const api = {
+const api = {    
     utils: {
+        env: () => 'prout',
         testDBConnection: async() => {
             try {
                 let connection = await Database.getConnectionInstance();
