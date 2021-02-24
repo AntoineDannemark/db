@@ -1,8 +1,8 @@
-import Database, { ConnectionOptions } from './../Database';
+import Database from './../Database';
 import { validate } from 'class-validator';
 import { Person, IPerson } from './index';
 
-export default async (options: ConnectionOptions, {
+export default async ({
     firstname,
     lastname,
     birthDate,
@@ -32,7 +32,7 @@ export default async (options: ConnectionOptions, {
         // TODO better error handling
         throw new Error('validation error')
     } else {
-        let connection = await Database.getConnectionInstance(options)
+        let connection = await Database.getConnectionInstance()
         
         return await connection
             .createQueryBuilder()
