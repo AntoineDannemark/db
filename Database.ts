@@ -1,17 +1,28 @@
 import { Connection, ConnectionManager, getConnectionManager } from 'typeorm';
 import initDB from './initDB';
 
-export type platform = "cordova" | "better-sqlite3"
+type platform = "cordova" | "better-sqlite3"
+
+export type ConnectionOptions = {
+    isServerless: boolean 
+    platform: platform
+}
 
 export default class Database {
     private connectionManager: ConnectionManager;
     private isServerless: boolean;
     private platform: platform;
 
-    constructor(isServerless: boolean, platform: platform) {
+    constructor(options: ConnectionOptions) {
         this.connectionManager = getConnectionManager();
-        this.isServerless = isServerless;
-        this.platform = platform;
+        this.isServerless = options.isServerless;
+        this.platform = options.platform;
+    }
+
+    public static getConnectionInstance(options: ConnectionOptions) {
+        const ci = new this(options)
+        Object.assign(ci, options)
+        return ci.getConnection();
     }
 
     public async getConnection(): Promise<Connection> {
