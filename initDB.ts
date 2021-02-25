@@ -1,4 +1,3 @@
-import { isPlatform } from '@ionic/react';
 import { createConnection } from 'typeorm';
 
 import { Person } from './person';
@@ -6,9 +5,18 @@ import { Address } from './address';
 import { Phone } from './phone';
 
 export default async() => {   
-    const isServerless = !!+process.env.IS_SLS!;
+    let isServerless = !!+process.env.IS_SLS!,
+        type: "cordova" | "better-sqlite3";
 
-    const type = !isServerless && isPlatform("cordova") ? "cordova" : "better-sqlite3";
+    try {
+        // If module exists, we are in React for mobile
+        const isPlatform = require('@ionic/react').isPlatform;
+        type = !isServerless && isPlatform("cordova") ? "cordova" : "better-sqlite3";
+    } catch (err) {
+        // If error, we are either on electron or SLS
+        type = "better-sqlite3"
+    }
+
     const database = isServerless ? "/mnt/efs/medieval.db" : "medieval.db";
 
     return await createConnection({
