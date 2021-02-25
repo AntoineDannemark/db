@@ -1,6 +1,6 @@
 import { getConnection } from 'typeorm';
-import { Person } from './index';
-import phoneApi, { IPhone } from '../phone/index';
+import { Person } from '../Person';
+import phoneApi, { IPhone } from '../../phone/index';
 
 export default async (id: number, phone: IPhone) => {    
     const phoneId = await phoneApi.create(phone)

@@ -1,6 +1,6 @@
 import { getConnection } from 'typeorm';
 import { validate } from 'class-validator';
-import { Phone, IPhone } from './index';
+import { Phone, IPhone } from '../index';
 
 export default async ({
    prefix,

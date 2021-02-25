@@ -1,6 +1,6 @@
-import Database from './../Database';
+import Database from '../../Database';
 import { validate } from 'class-validator';
-import { Person, IPerson } from './index';
+import { Person, IPerson } from '../index';
 
 export default async ({
     firstname,
