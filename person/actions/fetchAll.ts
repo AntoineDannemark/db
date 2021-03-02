@@ -1,5 +1,4 @@
-import Database from './../Database';
-import { getRepository } from 'typeorm';
+import Database from '../../Database';
 import { Person } from '../index';
 
 // const lightQueryCols = ["id, firstname, lastname, email"];
