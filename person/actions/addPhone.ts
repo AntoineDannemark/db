@@ -4,7 +4,7 @@
 */
 
 import { Person } from '../Person';
-import phoneApi from '../../phone/index';
+import phoneApi, { IPhone } from '../../phone/index';
 import Database from '../../Database';
 
 /**
@@ -12,7 +12,7 @@ import Database from '../../Database';
  * @param {number} id - the id of the person
  * @param {IPhone} phone - the phone number to create
  */
-export default async ({ id, phone }) => {
+export default async ({id, phone}: {id: number; phone: IPhone}) => {
     let connection = await Database.getConnectionInstance()
 
     const phoneId = await phoneApi.create(phone)
