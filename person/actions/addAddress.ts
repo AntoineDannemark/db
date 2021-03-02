@@ -13,7 +13,7 @@ export default async ({id, address}: {id: number; address: IAddress}) => {
     const addressId = await addressApi.create(address)
     await connection
         .createQueryBuilder()
-        .relation(Person, "addresss")
+        .relation(Person, "addresses")
         .of(id)
         .add(addressId)
 
