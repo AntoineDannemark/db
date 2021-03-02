@@ -1,3 +1,8 @@
+/**
+ * @name persons
+ * @method GET
+*/
+
 import Database from '../../Database';
 import { Person } from '../index';
 

@@ -1,3 +1,8 @@
+/**
+ * @name person
+ * @method POST
+*/
+
 import Database from '../../Database';
 import { validate } from 'class-validator';
 import { Person, IPerson } from '../Person';
