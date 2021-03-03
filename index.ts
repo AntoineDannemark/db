@@ -6,7 +6,6 @@ import Database from './Database';
 
 const api = {    
     utils: {
-        env: () => 'prout',
         testDBConnection: async() => {
             try {
                 let connection = await Database.getConnectionInstance();
