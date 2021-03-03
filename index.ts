@@ -1,12 +1,15 @@
 import personRoutes from './person';
 import phoneRoutes from './phone';
+import addressRoutes from './address';
 import Database from './Database';
+import fetch from 'cross-fetch';
 
-// Ici si sls 
-
-const api = {    
+const api = {
     utils: {
-        env: () => 'prout',
+        env: async() => {
+            const res = await fetch('https://jsonplaceholder.typicode.com/todos/1')
+            return res;
+        },
         testDBConnection: async() => {
             try {
                 let connection = await Database.getConnectionInstance();
@@ -23,7 +26,8 @@ const api = {
         },
     },
     person: { ...personRoutes },
-    phone: { ...phoneRoutes }
+    phone: { ...phoneRoutes },
+    address: { ...addressRoutes },
 }
 
 export type Api = typeof api;
