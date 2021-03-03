@@ -6,6 +6,7 @@ import { Phone } from '../phone/Phone'
 import { Address } from '../address/Address'
 
 export interface IPerson {
+    id?: number;
     firstname: string;
     lastname: string;
     birthDate: string;
