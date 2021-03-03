@@ -39,12 +39,14 @@ export default async ({
     } else {
         let connection = await Database.getConnectionInstance()
         
-        return await connection
+        const res =  await connection
             .createQueryBuilder()
             .insert()
             .into(Person)
             .values(person)
             .execute()
+
+        return res.raw;
     }
 }
 
