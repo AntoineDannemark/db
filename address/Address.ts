@@ -10,7 +10,7 @@ import { Person } from '../person/Person';
 
 export interface IAddress {
     street: string;
-    number: number,
+    number: number;
     city: string;
     zip: number;
     country: string;
