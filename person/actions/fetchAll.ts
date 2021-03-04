@@ -17,6 +17,7 @@ export default async () => {
         .select("person")
         .from(Person, "person")
         .leftJoinAndSelect("person.phones", "ph")
+        .leftJoinAndSelect("person.addresses", "a")
         // .select(["pe.id", "pe.firstname", "pe.lastname", "ph.prefix", "ph.number"])
         .getMany()
 }
