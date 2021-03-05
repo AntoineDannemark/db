@@ -1,26 +1,9 @@
 import personRoutes from './person';
 import phoneRoutes from './phone';
-import Database from './Database';
-
-// Ici si sls 
+import utilsRoutes from './utils';
 
 const api = {    
-    utils: {
-        testDBConnection: async() => {
-            try {
-                let connection = await Database.getConnectionInstance();
-                return {
-                    dbReady: connection.isConnected,
-                    error: null,
-                }
-            } catch(err) {
-                return {
-                    dbReady: false,
-                    error: err,
-                }
-            }
-        },
-    },
+    utils: { ...utilsRoutes },
     person: { ...personRoutes },
     phone: { ...phoneRoutes }
 }
