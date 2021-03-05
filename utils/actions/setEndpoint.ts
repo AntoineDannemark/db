@@ -1,4 +1,4 @@
-export default async (endpoint, isElectron): Promise<void> => {
+export default async (endpoint: string, isElectron: boolean): Promise<void> => {
     if (isElectron) {
         const Store = require('electron-store');
 
