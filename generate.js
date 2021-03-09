@@ -51,9 +51,11 @@ dirs.filter(dirname => !dirname.includes('.')).forEach(dir => {
             let methodTag = parsed[0].tags.find(tag => tag.tag === 'method'), method = methodTag ? methodTag.name: null;
             
             if(route && method) {
-                dataCode += `${EOL}app.${method.toLowerCase()}("/api/${route}", async (req, res) => {let result = await api.${dir}.${file.split(".")[0]}(req.body); res.send(result)});${EOL}`;
+                let action = file.split(".")[0];
 
-                apiObject[dir][file.split(".")[0]] = `async o => await fetch('${AWS_URL}/api/${route}', {method:'${method}', body: JSON.stringify(o)})`;
+                dataCode += `${EOL}app.${method.toLowerCase()}("/api/${route}", async (req, res) => expReq("${dir}", "${action}", req, res));${EOL}`;
+
+                apiObject[dir][action] = `async o => await fetch('${AWS_URL}/api/${route}', {method:'${method}', body: JSON.stringify(o)})`;
             };
         }
     });
