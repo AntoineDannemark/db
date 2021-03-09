@@ -8,7 +8,8 @@ const APIFILE = `${__dirname}/index.ts`;
 const EOL = os.EOL;
 const AWS_URL = "https://9lrwatxyfl.execute-api.eu-west-2.amazonaws.com/dev";
 
-files = fs.readdirSync(__dirname, {withFileTypes: true});
+let files = fs.readdirSync('.', {withFileTypes: true});
+
 let dirs = files.filter(f => f.isDirectory()).map(f => f.name);
 
 let dataCode = "// -start - don't remove this comment used to generate api code";
