@@ -1,10 +1,8 @@
-export default async (isElectron: boolean): Promise<void> => {
+export default async (isElectron: boolean): Promise<string> => {
     if (isElectron) {
             const Store = require('electron-store');
-            const store = new Store();
 
-            // TODO Check return value + use for async
-            return await store.get('dbEndpoint');
+            return await new Store().get('dbEndpoint');
     } else {
         const Storage = require('@capacitor/core').Plugins.Storage;
         
