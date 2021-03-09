@@ -3,12 +3,12 @@
 const os = require("os");
 const fs = require('fs');
 const { parse } = require('comment-parser/lib');
-const JSFILE = './../handler.js';
-const APIFILE = './index.ts';
+const JSFILE = `${__dirname}/../handler.js`;
+const APIFILE = `${__dirname}/index.ts`;
 const EOL = os.EOL;
 const AWS_URL = "https://9lrwatxyfl.execute-api.eu-west-2.amazonaws.com/dev";
 
-files = fs.readdirSync('.', {withFileTypes: true});
+files = fs.readdirSync(__dirname, {withFileTypes: true});
 let dirs = files.filter(f => f.isDirectory()).map(f => f.name);
 
 let dataCode = "// -start - don't remove this comment used to generate api code";
@@ -29,11 +29,13 @@ const replaceInFile = (file, code) => {
 };
 
 dirs.filter(dirname => !dirname.includes('.')).forEach(dir => {
-    if(!fs.existsSync(`./${dir}/actions`)) {
+    const actionsDir = `${__dirname}/${dir}/actions`;
+
+    if(!fs.existsSync(actionsDir)) {
         return;
     }
 
-    files = fs.readdirSync(`./${dir}/actions`);
+    files = fs.readdirSync(actionsDir);
 
     if(files.length) {
         apiObject[dir] = {};
@@ -43,7 +45,7 @@ dirs.filter(dirname => !dirname.includes('.')).forEach(dir => {
         console.log(dir, ':');
         console.log(file);
 
-        let fileContent =  fs.readFileSync(`./${dir}/actions/${file}`, {encoding:'utf8', flag:'r'});
+        let fileContent =  fs.readFileSync(`${actionsDir}/${file}`, {encoding:'utf8', flag:'r'});
         const parsed = parse(fileContent);
         
         if(parsed.length) {
