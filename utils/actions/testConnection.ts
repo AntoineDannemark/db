@@ -1,3 +1,8 @@
+/**
+ * @name utils/test
+ * @method GET
+*/
+
 import Database from '../../Database';
 
 export interface TestResponse {
