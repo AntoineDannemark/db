@@ -2,7 +2,7 @@ import { Endpoint } from './../../../features/User/userSlice';
 export default async (
     endpoint: Endpoint,
     isElectron: boolean
-): Promise<true | Error> => {
+): Promise<true> => {
     let { dbHosting, slsEndpoint } = endpoint;
 
     try {

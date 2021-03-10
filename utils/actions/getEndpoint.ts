@@ -1,6 +1,6 @@
 import { Endpoint } from "../../../features/User/userSlice";
 
-export default async (isElectron: boolean): Promise<Endpoint | Error> => {
+export default async (isElectron: boolean): Promise<Endpoint> => {
     try {
         let endpoint: Endpoint = {
             dbHosting: undefined,
