@@ -1,4 +1,4 @@
-import { Endpoint } from "../../../features/User/userSlice";
+import type { Endpoint } from '../../core/types';
 
 export default async (isElectron: boolean): Promise<Endpoint> => {
     try {
