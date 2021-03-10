@@ -9,10 +9,11 @@ import Model from '../Model';
 import { Person } from '../person/Person';
 
 export interface IAddress {
+    id?: number;
     street: string;
-    number: number;
+    number: string;
     city: string;
-    zip: number;
+    zip: string;
     country: string;
 }
 
@@ -22,14 +23,14 @@ export class Address extends Model implements IAddress {
     @Column('varchar')
     street: string;
 
-    @Column('int')
-    number: number;  
+    @Column('varchar')
+    number: string;  
 
     @Column('varchar')
     city: string;  
 
-    @Column('int')
-    zip: number;  
+    @Column('varchar')
+    zip: string;  
     
     @Column('varchar')
     country: string;  

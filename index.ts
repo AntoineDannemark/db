@@ -1,4 +1,5 @@
 import personRoutes from './person';
+import addressRoutes from './address';
 import phoneRoutes from './phone';
 import utilsRoutes from './utils';
 
@@ -21,6 +22,7 @@ const slsApi = {
 const api = {    
     utils: { ...utilsRoutes },
     person: { ...personRoutes },
+    address: { ...addressRoutes },
     phone: { ...phoneRoutes }
 }
 
