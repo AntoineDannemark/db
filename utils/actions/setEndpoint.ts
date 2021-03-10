@@ -1,16 +1,27 @@
-export default async (endpoint: string, isElectron: boolean): Promise<void> => {
-    if (isElectron) {
-        const Store = require('electron-store');
+import { Endpoint } from '../../core/types';
 
-        const store = new Store();
+export default async (
+    endpoint: Endpoint,
+    isElectron: boolean
+): Promise<true> => {
+    let { dbHosting, slsEndpoint } = endpoint;
 
-        // TODO Check return value + use for async
-        return await store.set('dbEndpoint', endpoint);
-    } else {
-        const Storage = require('@capacitor/core').Plugins.Storage;
-        
-        // TODO Check return value
-        return await Storage.set({key: 'dbEndpoint', value: endpoint})
+    try {
+        if (isElectron) {
+            const Store = require('electron-store');
+    
+            const store = new Store();
+    
+            await store.set('dbHosting', dbHosting);
+            await store.set('slsEndpoint', slsEndpoint);
+        } else {
+            const Storage = require('@capacitor/core').Plugins.Storage;
+            
+            await Storage.set({key: 'dbHosting', value: dbHosting})
+            await Storage.set({key: 'slsEndpoint', value: slsEndpoint})
+        }     
+        return true;  
+    } catch (err) {
+        throw new Error(err)
     }
-        
 }

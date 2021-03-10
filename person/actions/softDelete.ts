@@ -1,6 +1,6 @@
 /**
- * @name person
- * @method DELETE
+ * @name person/softDelete
+ * @method POST
 */
 
 import Database from '../../Database';
