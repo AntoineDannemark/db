@@ -55,10 +55,15 @@ dirs.filter(dirname => !dirname.includes('.')).forEach(dir => {
             
             if(route && method) {
                 let action = file.split(".")[0];
-
+                
                 dataCode += `${EOL}app.${method.toLowerCase()}("/api/${route}", async (req, res) => expReq("${dir}", "${action}", req, res));${EOL}`;
-
-                apiObject[dir][action] = `async (...args: any[]) => await fetch('${AWS_URL}/api/${route}', {method:'${method}', body: JSON.stringify(args)})`;
+                
+                if(method.toLowerCase() === "post") {
+                    apiObject[dir][action] = `async (...args: any[]) => await fetch('${AWS_URL}/api/${route}', {method:'${method}', body: JSON.stringify(args)}).then(r => r.json())`;
+                } else {
+                    apiObject[dir][action] = `async (...args: any[]) => await fetchGet('${AWS_URL}/api/${route}', args)`;
+                }
+                
             };
         }
     });
