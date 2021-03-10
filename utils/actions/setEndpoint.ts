@@ -1,4 +1,5 @@
-import { Endpoint } from './../../../features/User/userSlice';
+import { Endpoint } from '../../core/types';
+
 export default async (
     endpoint: Endpoint,
     isElectron: boolean
