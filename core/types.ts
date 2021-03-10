@@ -7,4 +7,4 @@ export type SlsEndpoint = string | undefined;
 export type Endpoint = {
     dbHosting: DbHosting;
     slsEndpoint: SlsEndpoint;
-}
+};
