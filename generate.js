@@ -54,14 +54,14 @@ dirs.filter(dirname => !dirname.includes('.')).forEach(dir => {
             let methodTag = parsed[0].tags.find(tag => tag.tag === 'method'), method = methodTag ? methodTag.name: null;
             
             if(route && method) {
-                let action = file.split(".")[0];
+                let action = file.split(".")[0], endpointRoute= "`${endpoint}/api/${route}`";
                 
                 dataCode += `${EOL}app.${method.toLowerCase()}("/api/${route}", async (req, res) => expReq("${dir}", "${action}", req, res));${EOL}`;
                 
                 if(method.toLowerCase() === "post") {
-                    apiObject[dir][action] = `async (...args: any[]) => await fetch('${AWS_URL}/api/${route}', {method:'${method}', body: JSON.stringify(args)}).then(r => r.json())`;
+                    apiObject[dir][action] = `async (...args: any[]) => await fetch(${endpointRoute}, {method:'${method}', body: JSON.stringify(args)}).then(r => r.json())`;
                 } else {
-                    apiObject[dir][action] = `async (...args: any[]) => await fetchGet('${AWS_URL}/api/${route}', args)`;
+                    apiObject[dir][action] = `async (...args: any[]) => await fetchGet(${endpointRoute}, args)`;
                 }
                 
             };
