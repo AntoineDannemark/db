@@ -54,7 +54,7 @@ dirs.filter(dirname => !dirname.includes('.')).forEach(dir => {
             let methodTag = parsed[0].tags.find(tag => tag.tag === 'method'), method = methodTag ? methodTag.name: null;
             
             if(route && method) {
-                let action = file.split(".")[0], endpointRoute= "`${endpoint}/api/${route}`";
+                let action = file.split(".")[0], endpointRoute= `\`\${endpoint}/api/${route}\``;
                 
                 dataCode += `${EOL}app.${method.toLowerCase()}("/api/${route}", async (req, res) => expReq("${dir}", "${action}", req, res));${EOL}`;
                 
