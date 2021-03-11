@@ -1,6 +1,7 @@
 import create from './actions/create';
 import softDelete from './actions/softDelete';
 import fetchAll from './actions/fetchAll';
+import update from './actions/update';
 
 export { Address } from './Address';
 export type { IAddress } from './Address';
@@ -10,4 +11,5 @@ export default {
     create, 
     softDelete,
     fetchAll,
+    update,
 }
