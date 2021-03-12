@@ -1,5 +1,7 @@
 import fetch from 'cross-fetch';
 
+import { log } from './utils/logger';
+
 import personRoutes from './person';
 import phoneRoutes from './phone';
 import utilsRoutes from './utils';
@@ -15,6 +17,7 @@ const headers = {
 };
 
 const getSlsApi = (endpoint: string) => {
+    log("getSlsAPi - client connecting to serverless database", "api")
     return {
             // -start - don't remove this comment used to generate api codeaddress: {},
 	person: {

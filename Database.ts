@@ -1,5 +1,6 @@
 import { Connection, ConnectionManager, getConnectionManager } from 'typeorm';
 import initDB from './initDB';
+import { log } from './utils/logger';
 
 export default class Database {
     private connectionManager: ConnectionManager;
@@ -19,7 +20,7 @@ export default class Database {
         let connection: Connection
 
         if (this.connectionManager.has(CONNECTION_NAME)) {
-            console.log(`Database.getConnection()-using existing connection ...`)
+            log("Database.getConnection() - using existing connection...", "api") 
             connection = await this.connectionManager.get(CONNECTION_NAME)
 
             if (!connection.isConnected) {
@@ -27,8 +28,7 @@ export default class Database {
             }
         }
         else {
-            console.log(`Database.getConnection()-creating connection ...`);
-
+            log("Database.getConnection() - creating connection...", "api") 
             connection = await initDB();
         }
 
