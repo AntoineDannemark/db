@@ -9,9 +9,8 @@ export default class Database {
     }
 
     public static getConnectionInstance() {
-        const ci = new this();
-        Object.assign(ci)
-        return ci.getConnection();
+        const db = new this();
+        return db.getConnection();
     }
 
     public async getConnection(): Promise<Connection> {
