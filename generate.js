@@ -8,7 +8,7 @@ const APIFILE = `${__dirname}/index.ts`;
 const EOL = os.EOL;
 const AWS_URL = "https://9lrwatxyfl.execute-api.eu-west-2.amazonaws.com/dev";
 
-let files = fs.readdirSync('.', {withFileTypes: true});
+let files = fs.readdirSync(__dirname, {withFileTypes: true});
 
 let dirs = files.filter(f => f.isDirectory()).map(f => f.name);
 
@@ -54,11 +54,16 @@ dirs.filter(dirname => !dirname.includes('.')).forEach(dir => {
             let methodTag = parsed[0].tags.find(tag => tag.tag === 'method'), method = methodTag ? methodTag.name: null;
             
             if(route && method) {
-                let action = file.split(".")[0];
-
+                let action = file.split(".")[0], endpointRoute= `\`\${endpoint}/api/${route}\``;
+                
                 dataCode += `${EOL}app.${method.toLowerCase()}("/api/${route}", async (req, res) => expReq("${dir}", "${action}", req, res));${EOL}`;
-
-                apiObject[dir][action] = `async (...args: any[]) => await fetch('${AWS_URL}/api/${route}', {method:'${method}', body: JSON.stringify(args)})`;
+                
+                if(method.toLowerCase() === "post") {
+                    apiObject[dir][action] = `async (...args: any[]) => await fetch(${endpointRoute}, {method:'${method}', headers, body: JSON.stringify(args[0])}).then(r => r.json())`;
+                } else {
+                    apiObject[dir][action] = `async (...args: any[]) => await fetchGet(${endpointRoute}, args)`;
+                }
+                
             };
         }
     });
