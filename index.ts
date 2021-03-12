@@ -1,12 +1,8 @@
+import fetch from 'cross-fetch';
+
 import personRoutes from './person';
 import phoneRoutes from './phone';
 import utilsRoutes from './utils';
-import storageApi from './../storage';
-import { isPlatform } from '@ionic/react';
-
-const endpoint = storageApi.getEndpoint(isPlatform("electron"))
-
-let api;
 
 const fetchGet = async (actionUrl: any, params: any) => {
 	let url = new URL(actionUrl);
@@ -14,9 +10,9 @@ const fetchGet = async (actionUrl: any, params: any) => {
 	return fetch(url.toString()).then(r => r.json());
 };
 
-const headers = new Headers({
-    "Content-Type": "application/json",
-});
+const headers = {
+    Accept: "application/json",
+};
 
 const getSlsApi = (endpoint: string) => {
     return {
@@ -42,7 +38,6 @@ const localApi = {
     phone: { ...phoneRoutes }
 }
 
-api = endpoint === "local" ? localApi : getSlsApi(endpoint);
-
-export type Api = typeof api;
-export default api;
+export const getApi = (endpoint: string) => endpoint === "local" 
+    ? localApi
+    : getSlsApi(endpoint);

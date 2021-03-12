@@ -6,7 +6,6 @@ const { parse } = require('comment-parser/lib');
 const JSFILE = `${__dirname}/../handler.js`;
 const APIFILE = `${__dirname}/index.ts`;
 const EOL = os.EOL;
-const AWS_URL = "https://9lrwatxyfl.execute-api.eu-west-2.amazonaws.com/dev";
 
 let files = fs.readdirSync(__dirname, {withFileTypes: true});
 
