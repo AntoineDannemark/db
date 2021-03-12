@@ -59,7 +59,7 @@ dirs.filter(dirname => !dirname.includes('.')).forEach(dir => {
                 dataCode += `${EOL}app.${method.toLowerCase()}("/api/${route}", async (req, res) => expReq("${dir}", "${action}", req, res));${EOL}`;
                 
                 if(method.toLowerCase() === "post") {
-                    apiObject[dir][action] = `async (...args: any[]) => await fetch(${endpointRoute}, {method:'${method}', body: JSON.stringify(args)}).then(r => r.json())`;
+                    apiObject[dir][action] = `async (...args: any[]) => await fetch(${endpointRoute}, {method:'${method}', headers, body: JSON.stringify(args[0])}).then(r => r.json())`;
                 } else {
                     apiObject[dir][action] = `async (...args: any[]) => await fetchGet(${endpointRoute}, args)`;
                 }
