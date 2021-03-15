@@ -18,10 +18,34 @@ export default async () => {
 
     return await connection
         .createQueryBuilder()
-        .select("person")
-        .from(Person, "person")
-        .leftJoinAndSelect("person.phones", "ph")
-        .leftJoinAndSelect("person.addresses", "a")
-        // .select(["pe.id", "pe.firstname", "pe.lastname", "ph.prefix", "ph.number"])
+        .select("person") 
+        .from(Person, "p")
+        .leftJoinAndSelect("p.phones", "ph")
+        .leftJoinAndSelect("p.addresses", "a")
+        .select([
+            "p.id", 
+            "p.uuid",
+            "p.firstname", 
+            "p.lastname", 
+            "p.birthDate", 
+            "p.birthPlace", 
+            "p.email", 
+            "p.gender",
+            "p.bankAccount",
+            "p.bankCode",
+            "ph.prefix", 
+            "ph.number"
+        ])
         .getMany()
+        // .then(res => {
+        //     let result = [];
+        //     res.forEach(r => {
+        //         // log(JSON.stringify(r), "api")
+        //         // log(typeof r, "api")
+        //         result.push(Object.assign({}, r))
+        //     });
+
+        //     return result;
+        // });
+            
 }
