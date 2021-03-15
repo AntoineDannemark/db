@@ -1,20 +1,20 @@
 import { 
     BaseEntity, 
-    // BeforeInsert, 
-    // Column, 
+    BeforeInsert, 
+    Column, 
     CreateDateColumn, 
     DeleteDateColumn,
     PrimaryGeneratedColumn, 
     UpdateDateColumn 
 } from "typeorm";
-// import { v4 as uuid } from 'uuid'
+import { v4 as uuid } from 'uuid'
 
 export default abstract class Model extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number
 
-    // @Column({ type: 'uuid',  nullable: true })
-    // uuid: string
+    @Column({ type: 'uuid' })
+    uuid: string
 
     @CreateDateColumn()
     createdAt: Date
@@ -25,8 +25,8 @@ export default abstract class Model extends BaseEntity {
     @DeleteDateColumn()
     deletedAt: Date;
 
-    // @BeforeInsert()
-    // createUuid() {
-    //     this.uuid = uuid()
-    // }
+    @BeforeInsert()
+    createUuid() {
+        this.uuid = uuid()
+    }
 }
