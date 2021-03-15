@@ -25,7 +25,8 @@ const getSlsApi = (endpoint: string) => {
 		addPhone: async (...args: any[]) => await fetch(`${endpoint}/api/person/phone`, {method:'POST', headers, body: JSON.stringify(args[0])}).then(r => r.json()),
 		create: async (...args: any[]) => await fetch(`${endpoint}/api/person`, {method:'POST', headers, body: JSON.stringify(args[0])}).then(r => r.json()),
 		fetchAll: async (...args: any[]) => await fetchGet(`${endpoint}/api/persons`, args),
-		softDelete: async (...args: any[]) => await fetch(`${endpoint}/api/person/softDelete`, {method:'POST', headers, body: JSON.stringify(args[0])}).then(r => r.json())
+		softDelete: async (...args: any[]) => await fetch(`${endpoint}/api/person/softDelete`, {method:'POST', headers, body: JSON.stringify(args[0])}).then(r => r.json()),
+		updateOne: async (...args: any[]) => await fetchGet(`${endpoint}/api/persons`, args)
 	},
 	phone: {},
 	utils: {
@@ -44,3 +45,5 @@ const localApi = {
 export const getApi = (endpoint: string) => endpoint === "local" 
     ? localApi
     : getSlsApi(endpoint);
+
+export type Api = ReturnType<typeof getApi>
