@@ -12,9 +12,7 @@ const fetchGet = async (actionUrl: any, params: any) => {
 	return fetch(url.toString()).then(r => r.json());
 };
 
-const headers = {
-    Accept: "application/json",
-};
+const headers = {"Content-Type": "application/json"}
 
 const getSlsApi = (endpoint: string) => {
     log("getSlsAPi - client connecting to serverless database", "api")
