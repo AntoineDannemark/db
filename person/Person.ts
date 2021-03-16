@@ -1,5 +1,17 @@
-import { Column, Entity, OneToMany  } from 'typeorm'
-import { IsEmail, IsDateString, IsIn } from 'class-validator'
+import { 
+    Column,
+    Entity, 
+    OneToMany,
+    BeforeInsert,
+    BeforeUpdate, 
+} from 'typeorm'
+import { 
+    IsEmail,
+    IsDateString,
+    IsIn,
+    IsDefined,
+    validateOrReject, 
+} from 'class-validator'
 
 import Model from '../Model'
 import { Phone } from '../phone/Phone'
@@ -22,23 +34,29 @@ export interface IPerson {
 export class Person extends Model implements IPerson {  
 
     @Column('varchar')
+    @IsDefined()
     firstname: string;
 
     @Column('varchar')
+    @IsDefined()
     lastname: string;
 
     @Column('varchar')
+    // @IsDefined()
     @IsDateString()
     birthDate: string
 
     @Column('varchar')
+    // @IsDefined()
     birthPlace: string
 
     @Column('varchar')
+    @IsDefined()
     @IsEmail()
     email: string;
 
     @Column('varchar')
+    @IsDefined()
     @IsIn(["m", "f", "x"])
     gender: string
 
@@ -57,4 +75,10 @@ export class Person extends Model implements IPerson {
     @OneToMany(() => Address, address => address.owner)
     addresses: Address[]
 
+    // HOOKS
+    @BeforeInsert()
+    @BeforeUpdate()
+    async validate(): Promise<void> {
+        await validateOrReject(this);
+    }
 }
