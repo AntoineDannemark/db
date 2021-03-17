@@ -12,8 +12,8 @@ import Database from '../../Database';
  * @param {number} id - the id of the person
  * @param {IPhone} phone - the phone number to create
  */
-export default async ({id, phone}: {id: number; phone: IPhone}) => {
-    let connection = await Database.getConnectionInstance()
+export default async ({ id, phone, dbName }: { id: number; phone: IPhone }) => {
+    let connection = await Database.getConnectionInstance(dbName)
 
     const phoneId = await phoneApi.create(phone)
     await connection

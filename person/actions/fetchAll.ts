@@ -9,8 +9,8 @@ import { Person } from '../index';
 // const lightQueryCols = ["id, firstname, lastname, email"];
 // const fullQueryCols = ["p.id, p.firstname, p.lastname, p.birthDate, p.birthPlace, p.email, p.gender, p.bankAccount, p.bankCode, phone.number, phone.prefix"];
 
-export default async () => {
-    let connection = await Database.getConnectionInstance()
+export default async ({ dbName }) => {
+    let connection = await Database.getConnectionInstance(dbName)
 
     return await connection
         .createQueryBuilder()

@@ -8,6 +8,7 @@ import { validate } from 'class-validator';
 import { Person, IPerson } from '../Person';
 
 export default async ({
+    dbName,
     firstname,
     lastname,
     birthDate,
@@ -37,9 +38,9 @@ export default async ({
         // TODO better error handling
         throw new Error('validation error')
     } else {
-        let connection = await Database.getConnectionInstance()
-        
-        const res =  await connection
+        let connection = await Database.getConnectionInstance(dbName)
+
+        const res = await connection
             .createQueryBuilder()
             .insert()
             .into(Person)

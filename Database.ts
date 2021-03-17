@@ -8,14 +8,14 @@ export default class Database {
         this.connectionManager = getConnectionManager();
     }
 
-    public static getConnectionInstance() {
+    public static getConnectionInstance(name) {
         const ci = new this();
         Object.assign(ci)
-        return ci.getConnection();
+        return ci.getConnection(name);
     }
 
-    public async getConnection(): Promise<Connection> {
-        const CONNECTION_NAME = 'default';
+    public async getConnection(name): Promise<Connection> {
+        const CONNECTION_NAME = name;
 
         let connection: Connection
 
@@ -30,7 +30,7 @@ export default class Database {
         else {
             console.log(`Database.getConnection()-creating connection ...`);
 
-            connection = await initDB();
+            connection = await initDB(name);
         }
 
         return connection;

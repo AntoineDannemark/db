@@ -4,7 +4,7 @@ import { Person } from './person';
 import { Address } from './address';
 import { Phone } from './phone';
 
-export default async() => {   
+export default async (name) => {
     let isServerless = !!+process.env.IS_SLS!,
         type: "cordova" | "better-sqlite3";
 
@@ -17,7 +17,7 @@ export default async() => {
         type = "better-sqlite3"
     }
 
-    const database = isServerless ? "/mnt/efs/medieval.db" : "medieval.db";
+    const database = isServerless ? `/mnt/efs/${name}.db` : "medieval.db";
 
     return await createConnection({
         type,
